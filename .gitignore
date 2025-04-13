@@ -1,3 +1,4 @@
 Front/node_modules/.bin/acorn
 Front/node_modules/
 server/node_modules/
+.env
