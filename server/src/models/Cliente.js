@@ -42,7 +42,7 @@ const Cliente = sequelize.define('Cliente', {
         type: DataTypes.STRING,
         allowNull: false,
     },
-    time: {
+    torcida: {
         type: DataTypes.STRING,
         allowNull: false,
     }

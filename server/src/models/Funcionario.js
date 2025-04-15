@@ -56,6 +56,10 @@ const Funcionario = sequelize.define('Funcionario', {
         type: DataTypes.STRING,
         allowNull: false,
     },
+    torcida: {
+        type: DataTypes.STRING,
+        allowNull: false,
+    }
 }, {
     tableName: 'funcionario',
     timestamps: false
