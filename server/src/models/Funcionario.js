@@ -1,5 +1,6 @@
 const { DataTypes } = require('sequelize');
 const sequelize = require('../config/database');
+const { gerarSalt, hashSenha } = require('../utils/authUtils');
 
 const Funcionario = sequelize.define('Funcionario', {
     id_funcionario: {
@@ -38,6 +39,11 @@ const Funcionario = sequelize.define('Funcionario', {
     senha : {
         type: DataTypes.STRING,
         allowNull: false,
+        set(value) {
+            const salt = gerarSalt(); // Gera o salt
+            this.setDataValue('salt', salt); // Armazena o salt
+            this.setDataValue('senha', hashSenha(value, salt)); // Armazena o hash da senha
+        }
     },
     cpf : {
         type: DataTypes.STRING,
@@ -54,5 +60,8 @@ const Funcionario = sequelize.define('Funcionario', {
     tableName: 'funcionario',
     timestamps: false
 });
+
+Cliente.prototype.verificarSenha = async function(senhaInput) {
+    return await bcrypt.compare(senhaInput, this.senha);
 
 module.exports = Funcionario;
