@@ -68,4 +68,6 @@ const Funcionario = sequelize.define('Funcionario', {
 Cliente.prototype.verificarSenha = async function(senhaInput) {
     return await bcrypt.compare(senhaInput, this.senha);
 
+};
+
 module.exports = Funcionario;
