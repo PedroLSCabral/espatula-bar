@@ -3,7 +3,8 @@ const sequelize = require('../config/database');
 
 const Cliente = sequelize.define('Cliente', {
     id_cliente: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.UUID,
+        defaultValue: DataTypes.UUIDV4,
         primaryKey: true,
         autoIncrement: false
     },
@@ -18,9 +19,9 @@ const Cliente = sequelize.define('Cliente', {
     idade: {
         type: DataTypes.INTEGER,
         allowNull: false,
-        validade: {
+        validate: {
             isInt: true,
-            min: 0,
+            min: 18,
             max: 120
         }
     },

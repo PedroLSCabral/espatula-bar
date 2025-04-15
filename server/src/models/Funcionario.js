@@ -4,7 +4,8 @@ const { gerarSalt, hashSenha } = require('../utils/authUtils');
 
 const Funcionario = sequelize.define('Funcionario', {
     id_funcionario: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.UUID,
+        defaultValue: DataTypes.UUIDV4,
         primaryKey: true,
         autoIncrement: false
     },
@@ -19,9 +20,9 @@ const Funcionario = sequelize.define('Funcionario', {
     idade: {
         type: DataTypes.INTEGER,
         allowNull: false,
-        validade: {
+        validate: {
             isInt: true,
-            min: 0,
+            min: 18,
             max: 120
         }
     },
@@ -65,7 +66,7 @@ const Funcionario = sequelize.define('Funcionario', {
     timestamps: false
 });
 
-Cliente.prototype.verificarSenha = async function(senhaInput) {
+Funcionario.prototype.verificarSenha = async function(senhaInput) {
     return await bcrypt.compare(senhaInput, this.senha);
 
 };
