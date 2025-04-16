@@ -1,4 +1,4 @@
-const {Produto, Ingrediente, ProdutoIngrediente, Funcionario, Cliente, Venda} = require('../models');
+const {Produto, Ingrediente, ProdutoIngrediente, Funcionario, Cliente, Venda, RelatorioVendas} = require('../models');
 
 class ConsultaController {
     async consultarProduto(req, res) {
@@ -53,6 +53,15 @@ class ConsultaController {
         } catch (error) {
             console.error(error);
             res.status(500).json({ error: 'Erro ao consultar vendas' });
+        }
+    }
+    async consultarRelatorioVendas(req, res) {
+        try {
+            const relatorioVendas = await RelatorioVendas.findAll({});
+            res.status(200).json(relatorioVendas);
+        } catch (error) {
+            console.error(error);
+            res.status(500).json({ error: 'Erro ao consultar relatorio vendas' });
         }
     }
 }

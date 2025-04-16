@@ -9,6 +9,7 @@ const Ingrediente = require('./Ingrediente');
 const ProdutoIngrediente = require('./ProdutoIngrediente');
 
 const Venda = require('./Venda');
+const RelatorioVendas = require('./Relatorio');
 
 const models = {
     Cliente,
@@ -16,7 +17,8 @@ const models = {
     Produto,
     Ingrediente,
     ProdutoIngrediente,
-    Venda
+    Venda,
+    RelatorioVendas
 };
 
 Object.values(models).forEach(model => {

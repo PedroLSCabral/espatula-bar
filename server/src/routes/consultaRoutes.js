@@ -14,4 +14,6 @@ router.get('/consulta/clientes', consultaController.consultarCliente);
 
 router.get('/consulta/vendas', consultaController.consultarVenda);
 
+router.get('/consulta/relatorio', consultaController.consultarRelatorioVendas);
+
 module.exports = router;
