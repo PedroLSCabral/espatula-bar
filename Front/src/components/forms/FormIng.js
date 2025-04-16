@@ -31,7 +31,7 @@ const FormIng = ({onEdit, setOnEdit, getIng}) => {
         }
         if(onEdit) {
             await axios
-                .put(`http://140.238.181.193:3000/registro/ingredientes/`, {
+                .put(`http://localhost:3000/update/ingredientes/`, {
                     id: onEdit.id,
                     nome: ingred.nome.value,
                     qtd : ingred.qtd.value,
@@ -43,7 +43,7 @@ const FormIng = ({onEdit, setOnEdit, getIng}) => {
 
         } else {
             await axios
-                .post("http://140.238.181.193:3000/registro/ingredientes", {
+                .post("http://localhost:3000/registro/ingredientes/", {
                     nome: ingred.nome.value,
                     qtd : ingred.qtd.value,
                     categoria : ingred.categoria.value,
