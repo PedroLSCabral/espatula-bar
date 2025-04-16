@@ -1,5 +1,7 @@
 const Cliente = require('../models/Cliente');
 const Funcionario = require('../models/Funcionario');
+const Produto = require('../models/Produto');
+const Ingrediente = require('../models/Ingrediente');
 
 class RegistroController {
     async cadastrarCliente(req, res) {
@@ -13,7 +15,18 @@ class RegistroController {
                 cidade,
                 torcida
             });
-            res.status(201).json(cliente);
+            res.status(201).json({
+                message: 'Cliente cadastrado com sucesso',
+                cliente: {
+                    id: cliente.id,
+                    nome: cliente.nome,
+                    idade: cliente.idade,
+                    email: cliente.email,
+                    cpf: cliente.cpf,
+                    cidade: cliente.cidade,
+                    torcida: cliente.torcida
+                }
+            });
         } catch (error) {
             console.error(error);
             res.status(500).json({ error: 'Erro ao cadastrar cliente' });
@@ -31,12 +44,72 @@ class RegistroController {
                 cidade,
                 torcida
             });
-            res.status(201).json(funcionario);
+            res.status(201).json({
+                message: 'Funcionário cadastrado com sucesso',
+                funcionario: {
+                    id: funcionario.id,
+                    nome: funcionario.nome,
+                    idade: funcionario.idade,
+                    email: funcionario.email,
+                    cpf: funcionario.cpf,
+                    cidade: funcionario.cidade,
+                    torcida: funcionario.torcida
+                }
+            });
         } catch (error) {
             console.error(error);
             res.status(500).json({ error: 'Erro ao cadastrar funcionário' });
         }
     }
+    async cadastrarProduto(req, res) {
+        const { nome, qtd, preco, categoria } = req.body;
+        try {
+            const produto = await Produto.create({
+                nome,
+                qtd,
+                preco,
+                categoria
+            });
+            res.status(201).json({
+                message: 'Produto cadastrado com sucesso',
+                produto: {
+                    id: produto.id,
+                    nome: produto.nome,
+                    qtd: produto.qtd,
+                    preco: produto.preco,
+                    categoria: produto.categoria
+                }
+            });
+        } catch (error) {
+            console.error(error);
+            res.status(500).json({ error: 'Erro ao cadastrar produto' });
+        }
+    }
+    async cadastrarIngrediente(req, res) {
+        const { nome, qtd, categoria } = req.body;
+        try {
+            const ingrediente = await Ingrediente.create({
+                nome,
+                qtd,
+                categoria
+            });
+            res.status(201).json({
+                message: 'Ingrediente cadastrado com sucesso',
+                ingrediente: {
+                    id: ingrediente.id,
+                    nome: ingrediente.nome,
+                    qtd: ingrediente.qtd,
+                    categoria: ingrediente.categoria
+                }
+            });
+        } catch (error) {
+            console.error(error);
+            res.status(500).json({ error: 'Erro ao cadastrar ingrediente' });
+        }
+    }
+
+
+
 }
 
 module.exports = new RegistroController();
