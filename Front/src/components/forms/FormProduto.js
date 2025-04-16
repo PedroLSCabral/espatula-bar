@@ -1,46 +1,9 @@
 import React, {useRef, useEffect} from "react";
-import styled from "styled-components";
 import axios from "axios";
 import {toast} from "react-toastify";
+import { FormContainer, InputArea, Button, Label, Input } from "../../styles/styledConsts";
 
-const FormContainer = styled.form`
-    display: flex;
-    align-items: flex-end;
-    gap: 10px;
-    flex-wrap: wrap;
-    background-color: #fff;
-    padding: 20px;
-    box-shadow: 0px 0px 5px #ccc;
-    border-radius: 5px;
-`;
-
-const InputArea = styled.div`
-    display: flex;
-    flex-direction: column;
-`;
-
-const Button = styled.button`
-    padding: 10px;
-    cursor: pointer;
-    border-radius: 5px;
-    border: none;
-    background-color: #2c73d2;
-    color: white;
-    height: 42px;
-`;
-
-const Label = styled.label``;
-
-const Input = styled.input`
-    width: 120px;
-    padding: 0px 10px;
-    border: 1px solid #bbb;
-    border-radius: 5px;
-    height: 40px;
-`;
-
-
-const Form = ({onEdit, setOnEdit, getProduto}) => {
+const FormProduto = ({onEdit, setOnEdit, getProduto}) => {
     const ref = useRef();
 
     useEffect(() => {
@@ -48,9 +11,9 @@ const Form = ({onEdit, setOnEdit, getProduto}) => {
             const produto = ref.current;
 
             produto.nome.value = onEdit.nome;
-            produto.tipo.value = onEdit.tipo;
             produto.qtd.value = onEdit.qtd;
             produto.preco.value = onEdit.preco;
+            produto.categoria.value = onEdit.categoria;
         }
     }, [onEdit]);
 
@@ -59,33 +22,33 @@ const Form = ({onEdit, setOnEdit, getProduto}) => {
 
         const produto = ref.current;
 
-        if (//Garant6e que os campos serão preenchidos
+        if (
             !produto.nome.value ||
-            !produto.tipo.value ||
             !produto.qtd.value ||
-            !produto.preco.value 
+            !produto.preco.value ||
+            !produto.categoria.value  
         ) {
-            return toast.warn("Preencha todos os campos!")//Exibe a mansagem e erro caso não estejam
+            return toast.warn("Preencha todos os campos!")
         }
         if(onEdit) {
             await axios
-                .put(`http://140.238.181.193:3000/produtos/`, {
+                .put(`http://localhost:3000/registro/produtos/`, {
                     id: onEdit.id,
                     nome: produto.nome.value,
-                    tipo : produto.tipo.value,
                     qtd : produto.qtd.value,
                     preco : produto.preco.value,
+                    categoria : produto.categoria.value,
                 })
                 .then(({data}) => toast.success(data))
                 .catch(({data}) => toast.error(data));
 
         } else {
             await axios
-                .post("http://140.238.181.193:3000/produtos", {
+                .post("http://localhost:3000/registro/produtos", {
                     nome: produto.nome.value,
-                    tipo : produto.tipo.value,
                     qtd : produto.qtd.value,
                     preco : produto.preco.value,
+                    categoria : produto.categoria.value,
                 })
                 .then(({data}) => toast.success(data))
                 .catch((err) => {
@@ -110,16 +73,16 @@ const Form = ({onEdit, setOnEdit, getProduto}) => {
                 <Input name = "nome"/>
             </InputArea>
             <InputArea>
-                <Label>Tipo</Label>
-                <Input name = "tipo"/>
-            </InputArea>
-            <InputArea>
                 <Label>Quantidade</Label>
                 <Input name = "qtd" type = "number"/>
             </InputArea>
             <InputArea>
                 <Label>Preço</Label>
                 <Input name = "preco" type = "number" step = "0.01" min = "0"/>
+            </InputArea>
+            <InputArea>
+                <Label>Categoria</Label>
+                <Input name = "categoria"/>
             </InputArea>
 
             <Button type = "submit">SALVAR</Button>
@@ -128,4 +91,4 @@ const Form = ({onEdit, setOnEdit, getProduto}) => {
     );
 };
 
-export default Form;
+export default FormProduto;
