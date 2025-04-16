@@ -8,7 +8,7 @@ const GridIng = ({ingreds, setIng, setOnEdit}) => {
 
     const handleDelete = async(id) => { 
         await axios
-            .delete(`http://140.238.181.193:3000/registro/ingredientes/`, {
+            .delete(`http://localhost:3000/registro/ingredientes/`, {
                 data: {id: id}
             })
             .then(({data}) => {

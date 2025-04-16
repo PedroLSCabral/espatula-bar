@@ -25,7 +25,7 @@ const IngPage = () => {
 
   const getIng = async () => {
     try {
-      const response = await fetch("http://140.238.181.193:3000/consulta/ingredientes", {
+      const response = await fetch("http://localhost:3000/consulta/ingredientes/", {
       
       })
       

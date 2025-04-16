@@ -9,11 +9,11 @@ const CompraPage = () => {
 
   
   const carregarDados = () => {
-    axios.get("http://localhost:3000/compras")
+    axios.get("http://localhost:3000/consulta/vendas")
       .then(res => setCompras(res.data))
       .catch(err => console.error("Erro ao carregar compras:", err));
 
-    axios.get("http://localhost:3000/produtos")
+    axios.get("http://localhost:3000/consulta/produtos")
       .then(res => setProdutos(res.data))
       .catch(err => console.error("Erro ao carregar produtos:", err));
   };

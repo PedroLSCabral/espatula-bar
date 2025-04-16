@@ -8,7 +8,7 @@ const GridCompra = () => {
 
   
   useEffect(() => {
-    axios.get("http://localhost:3000/compras")
+    axios.get("http://localhost:3000/consulta/vendas")
       .then(res => setCompras(res.data))
       .catch(err => console.error("Erro ao buscar compras:", err));
 
