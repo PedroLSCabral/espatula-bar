@@ -12,10 +12,10 @@ const FormCliente = ({onEdit, setOnEdit, getCliente}) => {
 
             cliente.nome.value = onEdit.nome;
             cliente.idade.value = onEdit.idade;
-            cliente.email.value = onEdit.cidade;
-            cliente.cpf.value = onEdit.time;
-            cliente.cidade.value = onEdit.email;
-            cliente.torcida.value = onEdit.cpf;
+            cliente.email.value = onEdit.email;
+            cliente.cpf.value = onEdit.cpf;
+            cliente.cidade.value = onEdit.cidade;
+            cliente.torcida.value = onEdit.torcida;
         }
     }, [onEdit]);
 

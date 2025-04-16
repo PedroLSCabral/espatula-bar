@@ -12,11 +12,11 @@ const FormFunc = ({onEdit, setOnEdit, getFunc}) => {
 
             func.nome.value = onEdit.nome;
             func.idade.value = onEdit.idade;
-            func.email.value = onEdit.cidade;
+            func.email.value = onEdit.email;
             func.senha.value = onEdit.senha;
-            func.cpf.value = onEdit.time;
-            func.cidade.value = onEdit.email;
-            func.torcida.value = onEdit.cpf;
+            func.cpf.value = onEdit.cpf;
+            func.cidade.value = onEdit.cidade;
+            func.torcida.value = onEdit.torcida;
         }
     }, [onEdit]);
 
