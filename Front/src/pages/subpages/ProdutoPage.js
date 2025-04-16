@@ -27,14 +27,29 @@ const ProdutoPage = () => {
 
   const filtrarProdutos = (filtros) => {
     const resultado = produtos.filter(p => {
+      if (!p) return false;
+      
+      const nomeProduto = p.nome?.toLowerCase() || '';
+      const nomeFiltro = filtros.nome?.toLowerCase() || '';
+    
+      const categoriaProduto = p.categoria?.toLowerCase() || '';
+      const categoriaFiltro = filtros.categoria?.toLowerCase() || '';
+      
+      const precoProduto = Number(p.preco) || 0;
+      const precoMin = Number(filtros.precoMin) || 0;
+      const precoMax = Number(filtros.precoMax) || Infinity;
+      const estoqueProduto = Number(p.qtd) || 0;
+      const estoqueMin = Number(filtros.estoqueMin) || 0;
+  
       return (
-        p.nome.toLowerCase().includes(filtros.nome.toLowerCase()) &&
-        (filtros.categoria === '' || p.categoria.toLowerCase() === filtros.categoria.toLowerCase()) &&
-        (filtros.precoMin === '' || p.preco >= parseFloat(filtros.precoMin)) &&
-        (filtros.precoMax === '' || p.preco <= parseFloat(filtros.precoMax)) &&
-        (filtros.estoqueMin === '' || p.qtd >= parseInt(filtros.estoqueMin))
+        nomeProduto.includes(nomeFiltro) &&
+        (categoriaFiltro === '' || categoriaProduto === categoriaFiltro) &&
+        (isNaN(precoMin) || precoProduto >= precoMin) &&
+        (isNaN(precoMax) || precoProduto <= precoMax) &&
+        (isNaN(estoqueMin) || estoqueProduto >= estoqueMin)
       );
     });
+    
     setProdutosFiltrados(resultado);
   };
 
