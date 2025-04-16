@@ -25,6 +25,7 @@ const GridCompra = () => {
     setOnEdit(null);
 };
 
+
 const handleEdit = (item) => {
     setOnEdit(item);
 };
@@ -59,14 +60,14 @@ const handleEdit = (item) => {
           </Tr>
         </Thead>
         <Tbody>
-          {compras.map((compra) => (
-            <Tr key={compra.id}>
-              <Td>{compra.cpf_cliente}</Td>
-              <Td>{getNomeProduto(compra.id_produto)}</Td>
-              <Td>{compra.forma_pag}</Td>
-              <Td>{compra.qtd}</Td>
-              <Td>R$ {compra.total.toFixed(2)}</Td>
-              <Td>{compra.id_funcionario || "N/A"}</Td>
+          {compras.map((item) => (
+            <Tr key={item.id}>
+              <Td>{item.cpf_cliente}</Td>
+              <Td>{getNomeProduto(item.id_produto)}</Td>
+              <Td>{item.forma_pag}</Td>
+              <Td>{item.qtd}</Td>
+              <Td>R$ {item.total.toFixed(2)}</Td>
+              <Td>{item.id_funcionario || "N/A"}</Td>
               <Td alignCenter width = "5%">
                 <FaEdit onClick={() => handleEdit(item)} style={{ color: "#000", cursor: "pointer" }}/>
               </Td>
