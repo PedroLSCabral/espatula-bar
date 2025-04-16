@@ -6,6 +6,7 @@ const FormCompra = () => {
   const [form, setForm] = useState({
     cpf_cliente: "",
     id_produto: "",
+    forma_pag: "",
     qtd: 1,
     id_funcionario: "",
     total: 0,
@@ -40,7 +41,7 @@ const FormCompra = () => {
   return (
     <FormContainer className="space-y-4 p-4 border rounded w-full max-w-md">
       <div>
-        <Label>CPF do Cliente:</Label>
+        <Label>Cliente:</Label>
         <Input
           name="cpf_cliente"
           value={form.cpf_cliente}
@@ -66,6 +67,17 @@ const FormCompra = () => {
         </Select>
       </div>
 
+      <div>
+        <Label>Forma de Pagamento:</Label>
+        <Select name="tipo" value={form.forma_pag} onChange={handleChange}>
+          <option value="">Selecione</option>
+          <option value="cartao">Cartão</option>
+          <option value="pix">PIX</option>
+          <option value="barries">Barries</option>
+          
+        </Select>
+      </div>
+      
       <div>
         <Label>Quantidade:</Label>
         <Input

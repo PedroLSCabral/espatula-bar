@@ -6,7 +6,29 @@ const GridCompra = () => {
   const [compras, setCompras] = useState([]);
   const [produtos, setProdutos] = useState([]);
 
-  
+  const handleDelete = async(id) => {
+    await axios
+        .delete(`http://localhost:3000/compras`, {
+            data: {id: id}
+        })
+        .then(({data}) => {
+            const newArray = compras.filter((compra) => compra.id !== id);
+
+            setCompras(newArray);
+            toast.success(data);
+        })
+        .catch((err) => {
+            console.error(err);
+            toast.error("Erro ao excluir o produto");
+        });
+        
+    setOnEdit(null);
+};
+
+const handleEdit = (item) => {
+    setOnEdit(item);
+};
+
   useEffect(() => {
     axios.get("http://localhost:3000/consulta/vendas")
       .then(res => setCompras(res.data))
@@ -30,6 +52,7 @@ const GridCompra = () => {
           <Tr>
             <Th>CPF Cliente</Th>
             <Th>Produto</Th>
+            <Th>Forma de Pagamento</Th>
             <Th>Quantidade</Th>
             <Th>Total</Th>
             <Th>Funcionário</Th>
@@ -40,9 +63,16 @@ const GridCompra = () => {
             <Tr key={compra.id}>
               <Td>{compra.cpf_cliente}</Td>
               <Td>{getNomeProduto(compra.id_produto)}</Td>
+              <Td>{compra.forma_pag}</Td>
               <Td>{compra.qtd}</Td>
               <Td>R$ {compra.total.toFixed(2)}</Td>
               <Td>{compra.id_funcionario || "N/A"}</Td>
+              <Td alignCenter width = "5%">
+                <FaEdit onClick={() => handleEdit(item)} style={{ color: "#000", cursor: "pointer" }}/>
+              </Td>
+              <Td alignCenter width = "5%">
+                <FaTrash onClick={() => handleDelete(item.id)} style={{ color: "#000", cursor: "pointer" }}/>
+              </Td>
             </Tr>
           ))}
         </Tbody>
