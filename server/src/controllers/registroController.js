@@ -1,7 +1,4 @@
-const Cliente = require('../models/Cliente');
-const Funcionario = require('../models/Funcionario');
-const Produto = require('../models/Produto');
-const Ingrediente = require('../models/Ingrediente');
+const { Cliente, Funcionario, Produto, Ingrediente, ProdutoIngrediente } = require('../models');
 
 class RegistroController {
     async cadastrarCliente(req, res) {
@@ -105,6 +102,27 @@ class RegistroController {
         } catch (error) {
             console.error(error);
             res.status(500).json({ error: 'Erro ao cadastrar ingrediente' });
+        }
+    }
+    async cadastrarProdutoIngrediente(req, res) {
+        const { id_produto, id_ingrediente, qtd } = req.body;
+        try {
+            const produtoIngrediente = await ProdutoIngrediente.create({
+                id_produto,
+                id_ingrediente,
+                qtd
+            });
+            res.status(201).json({
+                message: 'Produto e ingrediente cadastrados com sucesso',
+                produtoIngrediente: {
+                    id_produto: produtoIngrediente.id_produto,
+                    id_ingrediente: produtoIngrediente.id_ingrediente,
+                    qtd: produtoIngrediente.qtd
+                }
+            });
+        } catch (error) {
+            console.error(error);
+            res.status(500).json({ error: 'Erro ao cadastrar produto e ingrediente' });
         }
     }
 
