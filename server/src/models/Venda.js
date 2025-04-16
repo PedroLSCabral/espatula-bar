@@ -64,4 +64,15 @@ const Venda = sequelize.define('Venda', {
     timestamps: false
 });
 
+Venda.associate = (models) => {
+    Venda.belongsTo(models.Funcionario, {
+        foreignKey: 'id_funcionario',
+        as: 'funcionario'
+    });
+    Venda.belongsTo(models.Cliente, {
+        foreignKey: 'id_cliente',
+        as: 'cliente'
+    });
+};
+
 module.exports = Venda;
