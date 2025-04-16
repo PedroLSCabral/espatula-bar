@@ -1,6 +1,6 @@
 const { DataTypes } = require('sequelize');
 const sequelize = require('../config/database');
-const { gerarSalt, hashSenha } = require('../utils/authUtils');
+const bcrypt = require('bcryptjs');
 
 const Funcionario = sequelize.define('Funcionario', {
     id_funcionario: {
@@ -41,9 +41,8 @@ const Funcionario = sequelize.define('Funcionario', {
         type: DataTypes.STRING,
         allowNull: false,
         set(value) {
-            const salt = gerarSalt(); // Gera o salt
-            this.setDataValue('salt', salt); // Armazena o salt
-            this.setDataValue('senha', hashSenha(value, salt)); // Armazena o hash da senha
+            this.senha_bruta = value;
+            console.log('Senha bruta:', this.senha_bruta);
         }
     },
     cpf : {
@@ -62,6 +61,13 @@ const Funcionario = sequelize.define('Funcionario', {
         allowNull: false,
     }
 }, {
+    hooks: {
+        beforeValidate: async (funcionario) => {
+            const salt = await bcrypt.genSalt(10);
+            funcionario.setDataValue('salt', salt);
+            funcionario.setDataValue('senha', await bcrypt.hash(funcionario.senha_bruta, salt));
+        }
+    },
     tableName: 'funcionario',
     timestamps: false
 });
