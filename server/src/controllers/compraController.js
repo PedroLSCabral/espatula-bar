@@ -76,17 +76,34 @@ class CompraController {
                 );
             }
 
+            const torcidaVasco = cliente.torcida.toLowerCase() === 'vasco';
+            const torcidaFlamengo = cliente.torcida.toLowerCase() === 'flamengo';
+            const moraAfogados = cliente.cidade.toLowerCase() === 'afogados';
+            const moraSouza = cliente.cidade.toLowerCase() === 'souza';
+            
+            let taxa = 1.0;
+
+            if (torcidaVasco || moraAfogados || moraSouza) {
+                console.log("Aplicado desconto de 10% para torcedores do Vasco ou moradores de Afogados/Souza.");
+                taxa -= 0.1;
+            }
+            if (torcidaFlamengo) {
+                console.log("Aplicado taxa de 10% para torcedores do Flamengo.");
+                taxa += 0.1;
+            }
+
             for (const item of items) {
                 const produto = await Produto.findOne({ where: { id_produto: item.id_produto } });
                 if (!produto) {
                     return res.status(404).json({ error: `Produto com ID ${item.id_produto} não encontrado.` });
                 }
+
                 const venda = await Venda.create({
                     id_produto: item.id_produto,
                     qtd: item.qtd,
                     id_funcionario,
                     id_cliente,
-                    total: produto.preco * item.qtd
+                    total: (produto.preco * item.qtd) * taxa
                 });
             }
             
