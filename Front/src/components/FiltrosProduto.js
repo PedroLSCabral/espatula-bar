@@ -16,7 +16,7 @@ function FiltroProdutos({ onFiltrar }) {
   
     const handleSubmit = (e) => {
       e.preventDefault();
-      onFiltrar(filtros); 
+      onFiltrar(filtros);
     };
   
     return (
