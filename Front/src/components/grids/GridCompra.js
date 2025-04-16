@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
+import {FaTrash, FaEdit} from "react-icons/fa";
 import {Table, Thead, Td, Tbody, Tr, Th} from "../../styles/styledConsts";
 
 const GridCompra = () => {
