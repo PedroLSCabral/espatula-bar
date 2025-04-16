@@ -48,18 +48,7 @@ class ConsultaController {
     }
     async consultarVenda(req, res) {
         try {
-            const vendas = await Venda.findAll({
-                include: [
-                    {
-                        model: Funcionario,
-                        attributes: ['nome']
-                    },
-                    {
-                        model: Cliente,
-                        attributes: ['nome']
-                    }
-                ]
-            });
+            const vendas = await Venda.findAll({});
             res.status(200).json(vendas);
         } catch (error) {
             console.error(error);
